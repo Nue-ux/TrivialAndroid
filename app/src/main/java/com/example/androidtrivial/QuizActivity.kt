@@ -1,5 +1,7 @@
+// File: app/src/main/java/com/example/androidtrivial/QuizActivity.kt
 package com.example.androidtrivial
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -37,12 +39,19 @@ class QuizActivity : AppCompatActivity() {
         // Load questions from API
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                questions = RetrofitClient.apiService.getPreguntas()
+                val fetchedQuestions = RetrofitClient.apiService.getPreguntas()
+                // Retrieve the number of questions set in DifficultyActivity
+                val sharedPref = getSharedPreferences("MyGamePrefs", MODE_PRIVATE)
+                val numberOfQuestions = sharedPref.getInt("NUMBER_OF_QUESTIONS", fetchedQuestions.size)
+                questions = if (fetchedQuestions.size > numberOfQuestions) {
+                    fetchedQuestions.subList(0, numberOfQuestions)
+                } else {
+                    fetchedQuestions
+                }
                 withContext(Dispatchers.Main) {
                     loadQuestion()
                 }
             } catch (e: Exception) {
-                // Optionally manage error state here
                 e.printStackTrace()
             }
         }
@@ -50,7 +59,10 @@ class QuizActivity : AppCompatActivity() {
 
     private fun loadQuestion() {
         if (currentQuestionIndex >= questions.size) {
-            finish()  // End quiz if all questions are answered
+            // Quiz completed; navigate to the ScoreboardActivity
+            val intent = Intent(this, ScoreboardActivity::class.java)
+            startActivity(intent)
+            finish()
             return
         }
 
