@@ -1,4 +1,4 @@
-// File: app/src/main/java/com/example/androidtrivial/QuizActivity.kt
+// Language: kotlin
 package com.example.androidtrivial
 
 import android.content.Intent
@@ -9,11 +9,11 @@ import android.os.Looper
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.androidtrivial.data.Question
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import com.example.androidtrivial.data.Question
 
 class QuizActivity : AppCompatActivity() {
 
@@ -40,7 +40,7 @@ class QuizActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val fetchedQuestions = RetrofitClient.apiService.getPreguntas()
-                // Retrieve the number of questions set in DifficultyActivity
+                // Retrieve number of questions from shared preferences
                 val sharedPref = getSharedPreferences("MyGamePrefs", MODE_PRIVATE)
                 val numberOfQuestions = sharedPref.getInt("NUMBER_OF_QUESTIONS", fetchedQuestions.size)
                 questions = if (fetchedQuestions.size > numberOfQuestions) {
@@ -58,15 +58,13 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun loadQuestion() {
+        // If no more questions, proceed to scoreboard
         if (currentQuestionIndex >= questions.size) {
-            // Quiz completed; navigate to the ScoreboardActivity
-            val intent = Intent(this, ScoreboardActivity::class.java)
-            startActivity(intent)
-            finish()
+            submitFinalScore()
             return
         }
 
-        // Reset button colors and enable them
+        // Reset buttons
         listOf(buttonOption1, buttonOption2, buttonOption3, buttonOption4).forEach { button ->
             button.setBackgroundColor(Color.LTGRAY)
             button.isEnabled = true
@@ -75,14 +73,14 @@ class QuizActivity : AppCompatActivity() {
         val question = questions[currentQuestionIndex]
         textViewQuestion.text = question.pregunta
 
-        // Assuming exactly four options for simplicity
+        // Set up options
         val options = question.opciones
         buttonOption1.text = options.getOrNull(0) ?: ""
         buttonOption2.text = options.getOrNull(1) ?: ""
         buttonOption3.text = options.getOrNull(2) ?: ""
         buttonOption4.text = options.getOrNull(3) ?: ""
 
-        // Setup click listeners
+        // Set click listeners
         buttonOption1.setOnClickListener { checkAnswer(buttonOption1, options, question) }
         buttonOption2.setOnClickListener { checkAnswer(buttonOption2, options, question) }
         buttonOption3.setOnClickListener { checkAnswer(buttonOption3, options, question) }
@@ -90,24 +88,42 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun checkAnswer(selectedButton: Button, options: List<String>, question: Question) {
-        // Disable all buttons
+        // Disable all buttons for current question
         listOf(buttonOption1, buttonOption2, buttonOption3, buttonOption4).forEach { it.isEnabled = false }
 
-        // Check if selected text matches the correct answer
         val selectedAnswer = selectedButton.text.toString()
         if (selectedAnswer == question.correcta) {
             selectedButton.setBackgroundColor(Color.GREEN)
+            // Call API to increment score by 1 upon correct answer
+            val sharedPref = getSharedPreferences("MyGamePrefs", MODE_PRIVATE)
+            val userId = sharedPref.getInt("USER_ID", 0)
+            if (userId != 0) {
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        RetrofitClient.apiService.updateScore(userId)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            }
         } else {
             selectedButton.setBackgroundColor(Color.RED)
-            // Mark correct answer green
+            // Highlight correct answer
             listOf(buttonOption1, buttonOption2, buttonOption3, buttonOption4).find {
                 it.text.toString() == question.correcta
             }?.setBackgroundColor(Color.GREEN)
         }
-        // Delay and load next question
+        // Delay before next question
         Handler(Looper.getMainLooper()).postDelayed({
             currentQuestionIndex++
             loadQuestion()
         }, 2000)
+    }
+
+    private fun submitFinalScore() {
+        // Navigate to ScoreboardActivity after quiz ends
+        val intent = Intent(this, ScoreboardActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

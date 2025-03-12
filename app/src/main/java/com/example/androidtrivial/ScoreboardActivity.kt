@@ -1,3 +1,4 @@
+// Language: kotlin
 package com.example.androidtrivial
 
 import android.content.Intent
@@ -27,8 +28,8 @@ class ScoreboardActivity : AppCompatActivity() {
         recyclerViewScoreboard.layoutManager = LinearLayoutManager(this)
 
         buttonPlayAgain.setOnClickListener {
-            // Navigate back to the HomeActivity for a new game
-            val intent = Intent(this, HomeActivity::class.java)
+            // Navigate directly to QuizActivity to restart the game
+            val intent = Intent(this, QuizActivity::class.java)
             startActivity(intent)
             finish()
         }
