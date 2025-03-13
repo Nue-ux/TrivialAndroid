@@ -36,11 +36,11 @@ class QuizActivity : AppCompatActivity() {
         buttonOption3 = findViewById(R.id.buttonOption3)
         buttonOption4 = findViewById(R.id.buttonOption4)
 
-        // Load questions from API
+        // Carga las preguntas desde la API
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val fetchedQuestions = RetrofitClient.apiService.getPreguntas()
-                // Retrieve number of questions from shared preferences
+                // Recuperar el número de preguntas de las preferencias compartidas
                 val sharedPref = getSharedPreferences("MyGamePrefs", MODE_PRIVATE)
                 val numberOfQuestions = sharedPref.getInt("NUMBER_OF_QUESTIONS", fetchedQuestions.size)
                 questions = if (fetchedQuestions.size > numberOfQuestions) {
@@ -58,13 +58,13 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun loadQuestion() {
-        // If no more questions, proceed to scoreboard
+        // Si se han agotado todas las preguntas, envía la puntuación final
         if (currentQuestionIndex >= questions.size) {
             submitFinalScore()
             return
         }
 
-        // Reset buttons
+        // Botones de opción
         listOf(buttonOption1, buttonOption2, buttonOption3, buttonOption4).forEach { button ->
             button.setBackgroundColor(Color.LTGRAY)
             button.isEnabled = true
@@ -73,14 +73,14 @@ class QuizActivity : AppCompatActivity() {
         val question = questions[currentQuestionIndex]
         textViewQuestion.text = question.pregunta
 
-        // Set up options
+        // Establecer opciones de respuesta
         val options = question.opciones
         buttonOption1.text = options.getOrNull(0) ?: ""
         buttonOption2.text = options.getOrNull(1) ?: ""
         buttonOption3.text = options.getOrNull(2) ?: ""
         buttonOption4.text = options.getOrNull(3) ?: ""
 
-        // Set click listeners
+        // Enlace de clics para verificar la respuesta
         buttonOption1.setOnClickListener { checkAnswer(buttonOption1, options, question) }
         buttonOption2.setOnClickListener { checkAnswer(buttonOption2, options, question) }
         buttonOption3.setOnClickListener { checkAnswer(buttonOption3, options, question) }
@@ -88,13 +88,13 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun checkAnswer(selectedButton: Button, options: List<String>, question: Question) {
-        // Disable all buttons for current question
+        // Deshabilitar todos los botones de opción
         listOf(buttonOption1, buttonOption2, buttonOption3, buttonOption4).forEach { it.isEnabled = false }
 
         val selectedAnswer = selectedButton.text.toString()
         if (selectedAnswer == question.correcta) {
             selectedButton.setBackgroundColor(Color.GREEN)
-            // Call API to increment score by 1 upon correct answer
+            // Llama a la API para actualizar la puntuación del usuario
             val sharedPref = getSharedPreferences("MyGamePrefs", MODE_PRIVATE)
             val userId = sharedPref.getInt("USER_ID", 0)
             if (userId != 0) {
@@ -108,12 +108,12 @@ class QuizActivity : AppCompatActivity() {
             }
         } else {
             selectedButton.setBackgroundColor(Color.RED)
-            // Highlight correct answer
+            // Indicar la respuesta correcta
             listOf(buttonOption1, buttonOption2, buttonOption3, buttonOption4).find {
                 it.text.toString() == question.correcta
             }?.setBackgroundColor(Color.GREEN)
         }
-        // Delay before next question
+        // Después de 2 segundos, carga la siguiente pregunta
         Handler(Looper.getMainLooper()).postDelayed({
             currentQuestionIndex++
             loadQuestion()
@@ -121,7 +121,7 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun submitFinalScore() {
-        // Navigate to ScoreboardActivity after quiz ends
+        // Redirige a la actividad ScoreboardActivity
         val intent = Intent(this, ScoreboardActivity::class.java)
         startActivity(intent)
         finish()

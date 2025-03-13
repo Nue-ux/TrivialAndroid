@@ -17,19 +17,19 @@ class HomeActivity : AppCompatActivity() {
         val buttonStartGame: Button = findViewById(R.id.buttonStartGame)
 
         buttonInfo.setOnClickListener {
-            // Open the info screen (replace with your target class)
+            // Abre la pantalla de informacion
             val intent = Intent(this, InfoActivity::class.java)
             startActivity(intent)
         }
 
         buttonDifficulty.setOnClickListener {
-            // Open the difficulty settings screen (replace with your target class)
+            // Abre la pantalla de dificultad
             val intent = Intent(this, DifficultyActivity::class.java)
             startActivity(intent)
         }
 
         buttonStartGame.setOnClickListener {
-            // Start the game screen (replace with your game activity class)
+            // Initia el juego
             val intent = Intent(this, QuizActivity::class.java)
             startActivity(intent)
         }

@@ -28,13 +28,13 @@ class ScoreboardActivity : AppCompatActivity() {
         recyclerViewScoreboard.layoutManager = LinearLayoutManager(this)
 
         buttonPlayAgain.setOnClickListener {
-            // Navigate directly to QuizActivity to restart the game
+            // Redriger al usuario a la pantalla de juego
             val intent = Intent(this, QuizActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        // Retrieve the scoreboard from API
+        // Recupera la tabla de puntuaciones desde la API
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val scoreboard = RetrofitClient.apiService.getScoreboard()

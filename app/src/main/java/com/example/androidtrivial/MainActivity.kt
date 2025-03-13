@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
                                     Toast.LENGTH_SHORT
                                 ).show()
                             } else {
-                                // Register the new user
+                                // Registra el nuevo usuario
                                 CoroutineScope(Dispatchers.IO).launch {
                                     try {
                                         val nuevoUsuario = RetrofitClient.apiService.createUsuario(Usuario(0, nombreUsuario, 0))
@@ -52,10 +52,10 @@ class MainActivity : AppCompatActivity() {
                                             ).show()
                                             editTextName.isEnabled = false
                                             buttonRegister.isEnabled = false
-                                            // Save user id in shared preferences
+                                            // Guarda el ID de usuario en SharedPreferences
                                             val sharedPref = getSharedPreferences("MyGamePrefs", MODE_PRIVATE)
                                             sharedPref.edit().putInt("USER_ID", nuevoUsuario.id).apply()
-                                            // Navigate to HomeActivity after registration
+                                            // Navega a la actividad HomeActivity después de registrar al usuario
                                             val intent = Intent(this@MainActivity, HomeActivity::class.java)
                                             startActivity(intent)
                                         }

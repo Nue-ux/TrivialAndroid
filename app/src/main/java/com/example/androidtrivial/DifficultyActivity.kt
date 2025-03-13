@@ -1,4 +1,3 @@
-// Language: kotlin
 package com.example.androidtrivial
 
 import android.os.Bundle
@@ -17,7 +16,8 @@ class DifficultyActivity : AppCompatActivity() {
     private lateinit var buttonResetScore: Button
     private lateinit var buttonSave: Button
 
-    // Retrieve the user id passed via Intent extras; default is 0 if not available
+    // Recupera el ID de usuario pasado
+    // El valor predeterminado es 0 si no está disponible
     private val userId: Int by lazy { intent.getIntExtra("USER_ID", 0) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +28,8 @@ class DifficultyActivity : AppCompatActivity() {
         buttonResetScore = findViewById(R.id.buttonResetScore)
         buttonSave = findViewById(R.id.buttonSave)
 
-        // Setup number picker range and default value
+        // Configuración: número, rango del selector y valor predeterminado
+
         numberPickerQuestions.minValue = 5
         numberPickerQuestions.maxValue = 20
         numberPickerQuestions.value = 10
@@ -38,7 +39,7 @@ class DifficultyActivity : AppCompatActivity() {
                 Toast.makeText(this, "User not registered.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            // Call API to reset the score for the specified user id
+            // Llama a la API para restablecer la puntuación del ID de usuario especificado
             CoroutineScope(Dispatchers.IO).launch {
                 try {
                     RetrofitClient.apiService.updateScore(userId)
@@ -63,7 +64,7 @@ class DifficultyActivity : AppCompatActivity() {
 
         buttonSave.setOnClickListener {
             val selectedNumber = numberPickerQuestions.value
-            // Save the chosen number of questions in shared preferences
+            // Guarde el número de preguntas elegido en las preferencias compartidas
             val sharedPref = getSharedPreferences("MyGamePrefs", MODE_PRIVATE)
             with(sharedPref.edit()) {
                 putInt("NUMBER_OF_QUESTIONS", selectedNumber)
@@ -74,7 +75,7 @@ class DifficultyActivity : AppCompatActivity() {
                 "Number of questions set to $selectedNumber",
                 Toast.LENGTH_SHORT
             ).show()
-            finish() // Return to the previous screen
+            finish()
         }
     }
 }

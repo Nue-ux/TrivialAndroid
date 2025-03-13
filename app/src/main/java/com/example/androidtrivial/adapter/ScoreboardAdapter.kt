@@ -1,4 +1,3 @@
-// File: app/src/main/java/com/example/androidtrivial/adapter/ScoreboardAdapter.kt
 package com.example.androidtrivial.adapter
 
 import android.view.LayoutInflater
