@@ -3,4 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="yellow">#FFFFEB3B</color>
+    <color name="matrixGreen">#00FF00</color>
+    <color name="matrixRed">#00BFFF</color>
+    <color name="matrixGrey">#333333</color>
 </resources>

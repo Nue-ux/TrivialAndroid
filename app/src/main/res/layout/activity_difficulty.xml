@@ -3,43 +3,57 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/black">
 
+    <!-- Titulo: Seleccionar número de preguntas -->
     <TextView
         android:id="@+id/textViewTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Select Number of Questions"
         android:textSize="18sp"
+        android:textColor="@color/matrixGreen"
+        android:fontFamily="monospace"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Number Picker -->
     <NumberPicker
         android:id="@+id/numberPickerQuestions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:backgroundTint="@color/matrixGreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
 
+    <!-- Botón de Resetear Puntuación -->
     <Button
         android:id="@+id/buttonResetScore"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Reset Score"
+        android:textColor="@color/matrixGreen"
+        android:backgroundTint="@android:color/transparent"
+        android:strokeColor="@color/matrixGreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/numberPickerQuestions" />
 
+    <!-- Botón de Guardar -->
     <Button
         android:id="@+id/buttonSave"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Save"
+        android:textColor="@color/matrixGreen"
+        android:backgroundTint="@android:color/transparent"
+        android:strokeColor="@color/matrixGreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttonResetScore" />

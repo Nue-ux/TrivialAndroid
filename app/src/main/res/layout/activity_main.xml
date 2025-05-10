@@ -3,15 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     android:padding="16dp">
 
     <TextView
         android:id="@+id/textViewWelcome"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Bienvenido"
+        android:layout_marginTop="164dp"
+        android:fontFamily="monospace"
+        android:text="WELLCOME"
+        android:textAlignment="center"
+        android:textColor="@color/matrixGreen"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -19,32 +25,50 @@
         android:id="@+id/buttonStartQuiz"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Iniciar Quiz"
+        android:layout_marginTop="52dp"
+        android:backgroundTint="@color/black"
+        android:fontFamily="monospace"
+        android:text="Start Quiz"
+        android:textColor="@color/matrixGreen"
+        app:cornerRadius="0dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewWelcome" />
+        app:layout_constraintTop_toBottomOf="@id/textViewWelcome"
+        app:strokeColor="@color/matrixGreen"
+        app:strokeWidth="1dp" />
 
     <Button
         android:id="@+id/buttonInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Información"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="@color/black"
+        android:fontFamily="monospace"
+        android:text="Informaction"
+        android:textColor="@color/matrixGreen"
+        app:cornerRadius="0dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonStartQuiz" />
+        app:layout_constraintTop_toBottomOf="@id/buttonStartQuiz"
+        app:strokeColor="@color/matrixGreen"
+        app:strokeWidth="1dp" />
 
     <Button
         android:id="@+id/buttonNewInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Informacion de la app"
+        android:layout_marginTop="300dp"
         android:backgroundTint="@color/yellow"
+        android:fontFamily="monospace"
+        android:text="Informaction app"
+        android:textColor="@color/black"
+        app:cornerRadius="0dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonInfo" />
-
+        app:layout_constraintTop_toBottomOf="@id/buttonInfo"
+        app:strokeWidth="1dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
