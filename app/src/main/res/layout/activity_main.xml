@@ -71,4 +71,6 @@
         app:layout_constraintTop_toBottomOf="@id/buttonInfo"
         app:strokeWidth="1dp" />
 
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

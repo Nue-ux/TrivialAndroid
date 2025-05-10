@@ -4,6 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="yellow">#FFFFEB3B</color>
     <color name="matrixGreen">#00FF00</color>
-    <color name="matrixRed">#00BFFF</color>
+    <color name="matrixRed">#ff2d00</color>
     <color name="matrixGrey">#333333</color>
 </resources>

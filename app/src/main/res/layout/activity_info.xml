@@ -9,15 +9,17 @@
         android:id="@+id/textViewAppInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:lineSpacingExtra="6sp"
         android:padding="16dp"
         android:text="Application Information:\nVersion: 1.0\nDeveloper: Daniel Santacruz y Manel Dengra \n Esta aplicación ha sido desarrollada para poner a prueba los conocimientos basicos de las personas en un tema poco conocido, todas las preguntas son fáciles de responder y no se necesita de conocimientos previos para poder responderlas."
-        android:textSize="18sp"
         android:textColor="@color/matrixGreen"
-        android:lineSpacingExtra="6sp"
-        android:fontFamily="monospace"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.535" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
