@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/black">
+
+    <!-- Título Aciertos -->
+    <TextView
+        android:id="@+id/textViewCorrectTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:text="Sonidos de Acierto"
+        android:textColor="@color/matrixGreen"
+        android:textSize="16sp" />
+
+    <!-- Lista Aciertos -->
+    <ListView
+        android:id="@+id/listViewCorrect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp" />
+
+    <!-- Título Fallos -->
+    <TextView
+        android:id="@+id/textViewWrongTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="monospace"
+        android:text="Sonidos de Fallo"
+        android:textColor="@color/matrixGreen"
+        android:textSize="16sp" />
+
+    <!-- Lista Fallos -->
+    <ListView
+        android:id="@+id/listViewWrong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp" />
+
+    <!-- Título Finalización -->
+    <TextView
+        android:id="@+id/textViewFinishTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="monospace"
+        android:text="Sonidos de Finalización"
+        android:textColor="@color/matrixGreen"
+        android:textSize="16sp" />
+
+    <!-- Lista Finalización -->
+    <ListView
+        android:id="@+id/listViewFinish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp" />
+
+    <!-- Botón Guardar -->
+    <Button
+        android:id="@+id/buttonSaveSound"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guardar configuración"
+        app:strokeColor="@color/matrixGreen"
+        app:strokeWidth="1dp" />
+
+    <!-- Botón Activar/Desactivar sonido -->
+    <Button
+        android:id="@+id/buttonMuteSound"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Desactivar sonido"
+        app:strokeColor="@color/matrixGreen"
+        app:strokeWidth="1dp" />
+
+</LinearLayout>

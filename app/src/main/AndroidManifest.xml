@@ -49,6 +49,9 @@
             android:name=".ScoreboardActivity"
             android:exported="true" />
 
+        <activity
+            android:name="com.example.androidtrivial.OpcionsActivity" />
+
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

@@ -6,4 +6,7 @@
     <color name="matrixGreen">#00FF00</color>
     <color name="matrixRed">#ff2d00</color>
     <color name="matrixGrey">#333333</color>
+
+    <color name="trivialBackground">#FFFFFF</color>
+    <color name="trivialText">#000000</color>
 </resources>

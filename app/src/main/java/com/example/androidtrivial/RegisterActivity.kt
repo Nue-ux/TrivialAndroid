@@ -39,6 +39,11 @@ class RegisterActivity : AppCompatActivity() {
                         withContext(Dispatchers.Main) {
                             // Guardar el id y nombre que retorna la API
                             val sharedPref = getSharedPreferences("MyGamePrefs", MODE_PRIVATE)
+
+                            if (sharedPref.getBoolean("EFFECTS_ENABLED", true)) {
+                                startMatrixAnimation()
+                            }
+
                             with(sharedPref.edit()) {
                                 putInt("USER_ID", newUser.id)
                                 putString("USER_NAME", newUser.nombre)
