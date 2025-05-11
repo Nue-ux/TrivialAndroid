@@ -1,4 +1,3 @@
-// Language: kotlin
 package com.example.androidtrivial
 
 import android.content.Intent
@@ -18,6 +17,7 @@ class ScoreboardActivity : AppCompatActivity() {
 
     private lateinit var recyclerViewScoreboard: RecyclerView
     private lateinit var buttonPlayAgain: Button
+    private lateinit var buttonMainMenu: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,16 +25,22 @@ class ScoreboardActivity : AppCompatActivity() {
 
         recyclerViewScoreboard = findViewById(R.id.recyclerViewScoreboard)
         buttonPlayAgain = findViewById(R.id.buttonPlayAgain)
+        buttonMainMenu = findViewById(R.id.buttonMainMenu)
+
         recyclerViewScoreboard.layoutManager = LinearLayoutManager(this)
 
         buttonPlayAgain.setOnClickListener {
-            // Redriger al usuario a la pantalla de juego
             val intent = Intent(this, QuizActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        // Recupera la tabla de puntuaciones desde la API
+        buttonMainMenu.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val scoreboard = RetrofitClient.apiService.getScoreboard()

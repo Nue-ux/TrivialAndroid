@@ -18,8 +18,6 @@ class DifficultyActivity : AppCompatActivity() {
     private lateinit var buttonResetScore: Button
     private lateinit var buttonSave: Button
 
-    // Recupera el ID de usuario pasado
-    // El valor predeterminado es 0 si no está disponible
     private val userId: Int by lazy { intent.getIntExtra("USER_ID", 0) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,8 +28,6 @@ class DifficultyActivity : AppCompatActivity() {
         buttonResetScore = findViewById(R.id.buttonResetScore)
         buttonSave = findViewById(R.id.buttonSave)
 
-        // Configuración: número, rango del selector y valor predeterminado
-
         numberPickerQuestions.minValue = 5
         numberPickerQuestions.maxValue = 20
         numberPickerQuestions.value = 10
@@ -41,10 +37,10 @@ class DifficultyActivity : AppCompatActivity() {
                 Toast.makeText(this, "User not registered.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            // Llama a la API para restablecer la puntuación del ID de usuario especificado
             CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    RetrofitClient.apiService.updateScore(userId)
+                    // Se utiliza la función resetScore en lugar de updateScore
+                    RetrofitClient.apiService.resetScore(userId)
                     withContext(Dispatchers.Main) {
                         Toast.makeText(
                             this@DifficultyActivity,
@@ -66,7 +62,6 @@ class DifficultyActivity : AppCompatActivity() {
 
         buttonSave.setOnClickListener {
             val selectedNumber = numberPickerQuestions.value
-            // Guarde el número de preguntas elegido en las preferencias compartidas
             val sharedPref = getSharedPreferences("MyGamePrefs", MODE_PRIVATE)
             with(sharedPref.edit()) {
                 putInt("NUMBER_OF_QUESTIONS", selectedNumber)
@@ -79,7 +74,7 @@ class DifficultyActivity : AppCompatActivity() {
             ).show()
             finish()
         }
-        /*Monigote android*/
+
         val imageView = findViewById<ImageView>(R.id.androidWave)
         val drawable = imageView.drawable
 
@@ -89,6 +84,5 @@ class DifficultyActivity : AppCompatActivity() {
             imageView.setImageResource(R.drawable.android_wave_anim)
             (imageView.drawable as? AnimatedVectorDrawable)?.start()
         }
-        /*Monigote android*/
     }
 }

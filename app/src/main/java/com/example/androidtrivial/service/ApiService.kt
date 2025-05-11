@@ -18,6 +18,9 @@ interface ApiService {
     @PUT("api/usuarios/{id}/score")
     suspend fun updateScore(@Path("id") id: Int): Usuario
 
+    @PUT("api/usuarios/{id}/puntos")
+    suspend fun resetScore(@Path("id") id: Int): Usuario
+
     @GET("api/usuarios/scoreboard")
     suspend fun getScoreboard(): List<Usuario>
 }

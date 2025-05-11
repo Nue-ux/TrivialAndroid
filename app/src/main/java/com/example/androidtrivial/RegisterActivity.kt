@@ -1,4 +1,3 @@
-// Language: Kotlin
 package com.example.androidtrivial
 
 import android.content.Intent
@@ -6,6 +5,7 @@ import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.androidtrivial.data.Usuario
@@ -13,14 +13,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import android.widget.ImageView
 import android.animation.ObjectAnimator
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.TextView
 import android.view.animation.LinearInterpolator
 import android.widget.FrameLayout
-import kotlinx.coroutines.*
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -39,6 +37,13 @@ class RegisterActivity : AppCompatActivity() {
                         val newUser =
                             RetrofitClient.apiService.createUsuario(Usuario(0, userName, 0))
                         withContext(Dispatchers.Main) {
+                            // Guardar el id y nombre que retorna la API
+                            val sharedPref = getSharedPreferences("MyGamePrefs", MODE_PRIVATE)
+                            with(sharedPref.edit()) {
+                                putInt("USER_ID", newUser.id)
+                                putString("USER_NAME", newUser.nombre)
+                                apply()
+                            }
                             Toast.makeText(
                                 this@RegisterActivity,
                                 "User registered: ${newUser.nombre}",
@@ -61,7 +66,7 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please enter your name", Toast.LENGTH_SHORT).show()
             }
         }
-        /*Monigote android*/
+
         val imageView = findViewById<ImageView>(R.id.androidWave)
         val drawable = imageView.drawable
 
@@ -71,15 +76,12 @@ class RegisterActivity : AppCompatActivity() {
             imageView.setImageResource(R.drawable.android_wave_anim)
             (imageView.drawable as? AnimatedVectorDrawable)?.start()
         }
-        /*Monigote android*/
 
-        startMatrixAnimation();
-
+        startMatrixAnimation()
     }
-    /*Lluvia de 0101010101010111*/
+
     private fun startMatrixAnimation() {
         val container = findViewById<FrameLayout>(R.id.matrixContainer)
-
         val characters = "01"
         val screenWidth = resources.displayMetrics.widthPixels
         val columnCount = 20
@@ -95,7 +97,6 @@ class RegisterActivity : AppCompatActivity() {
                         typeface = android.graphics.Typeface.MONOSPACE
                         gravity = Gravity.CENTER
                     }
-
                     val params = FrameLayout.LayoutParams(
                         charSize,
                         ViewGroup.LayoutParams.WRAP_CONTENT
@@ -119,9 +120,8 @@ class RegisterActivity : AppCompatActivity() {
                         }
                     }
                 }
-                delay(150L) // tiempo entre columnas
+                kotlinx.coroutines.delay(150L)
             }
         }
     }
-
 }

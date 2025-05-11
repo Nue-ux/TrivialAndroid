@@ -25,10 +25,27 @@
         android:text="Play Again"
         android:textColor="@color/matrixGreen"
         app:cornerRadius="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/buttonMainMenu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/recyclerViewScoreboard"
+        app:strokeColor="@color/matrixGreen"
+        app:strokeWidth="1dp" />
+
+    <Button
+        android:id="@+id/buttonMainMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/black"
+        android:fontFamily="monospace"
+        android:text="Menu"
+        android:textColor="@color/matrixGreen"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonPlayAgain"
         app:strokeColor="@color/matrixGreen"
         app:strokeWidth="1dp" />
 

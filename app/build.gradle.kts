@@ -9,10 +9,11 @@ android {
 
     defaultConfig {
         applicationId = "com.example.androidtrivial"
-        minSdk = 24
+        minSdk = 21
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
+        vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -51,4 +52,5 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation (libs.material.v1110)
+    implementation (libs.androidx.vectordrawable.animated)
 }

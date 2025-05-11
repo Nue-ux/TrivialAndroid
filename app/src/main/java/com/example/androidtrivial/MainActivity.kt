@@ -1,4 +1,3 @@
-// Archivo: app/src/main/java/com/example/androidtrivial/MainActivity.kt
 package com.example.androidtrivial
 
 import android.content.Intent
@@ -35,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         buttonInfo.setOnClickListener {
-            startActivity(Intent(this, InfoActivity::class.java))
+            startActivity(Intent(this, DifficultyActivity::class.java))
         }
 
         buttonNewInfo.setOnClickListener {
