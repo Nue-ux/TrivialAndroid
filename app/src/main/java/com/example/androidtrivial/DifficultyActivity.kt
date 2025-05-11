@@ -1,7 +1,9 @@
 package com.example.androidtrivial
 
+import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -77,5 +79,16 @@ class DifficultyActivity : AppCompatActivity() {
             ).show()
             finish()
         }
+        /*Monigote android*/
+        val imageView = findViewById<ImageView>(R.id.androidWave)
+        val drawable = imageView.drawable
+
+        if (drawable is AnimatedVectorDrawable) {
+            drawable.start()
+        } else {
+            imageView.setImageResource(R.drawable.android_wave_anim)
+            (imageView.drawable as? AnimatedVectorDrawable)?.start()
+        }
+        /*Monigote android*/
     }
 }

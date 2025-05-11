@@ -1,0 +1,6 @@
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/android_robot">
+    <target
+        android:name="right_arm"
+        android:animation="@animator/arm_wave_rotation" />
+</animated-vector>

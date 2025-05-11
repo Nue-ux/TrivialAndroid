@@ -1,38 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/black"
     android:padding="8dp">
 
+    <!-- Pregunta -->
     <TextView
         android:id="@+id/textViewQuestion"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Pregunta"
+        android:fontFamily="monospace"
+        android:text="Question"
+        android:textColor="@color/matrixGreen"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Opciones -->
     <TextView
         android:id="@+id/textViewOptions"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Opciones"
-        app:layout_constraintTop_toBottomOf="@id/textViewQuestion"
+        android:fontFamily="monospace"
+        android:text="Options"
+        android:textColor="@color/matrixGreen"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/textViewQuestion" />
 
+    <!-- Respuesta Correcta -->
     <TextView
         android:id="@+id/textViewCorrect"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Respuesta Correcta"
-        app:layout_constraintTop_toBottomOf="@id/textViewOptions"
-        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="monospace"
+        android:text="Correct Answer"
+        android:textColor="@color/matrixGreen"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewOptions" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
