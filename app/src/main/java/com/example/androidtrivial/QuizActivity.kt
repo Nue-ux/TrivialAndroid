@@ -49,10 +49,6 @@ class QuizActivity : AppCompatActivity() {
         textViewScore = findViewById(R.id.textViewScore)
         textViewProgress = findViewById(R.id.textViewProgress)
         imageViewAnimation = findViewById(R.id.imageViewAnimation)
-        imageViewAnimation.post {
-            showAnimation(R.drawable.anim_hacker_check)
-        }
-
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -139,16 +135,20 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun showAnimation(@DrawableRes resId: Int) {
+        // 1.Inflar el Animated Vector Drawable con el recurso que llega por parámetro
         val drawable = AnimatedVectorDrawableCompat.create(this, resId)
-        if (drawable == null) {
-            Log.e("QUIZ", "No se pudo inflar el AVD")
-            return                    // <‑‑ salimos antes de hacer nada
-        }
+            ?: run {
+                Log.e("QUIZ", "No se pudo inflar el AVD (¿falta algún color?)")
+                return          // si es null abortamos
+            }
+
+        // 2.Asignarlo al ImageView (asegúrate de que el ImageView tiene constraints y tamaño)
         imageViewAnimation.setImageDrawable(drawable)
         imageViewAnimation.visibility = View.VISIBLE
+
+        // 3.Arrancar la animación
         (drawable as Animatable).start()
     }
-
 
     private fun updateProgress() {
         textViewScore.text = "Aciertos: $correctAnswers"

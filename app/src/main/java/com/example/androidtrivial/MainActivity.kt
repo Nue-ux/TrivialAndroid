@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         val buttonStartQuiz: Button = findViewById(R.id.buttonStartQuiz)
         val buttonInfo: Button = findViewById(R.id.buttonInfo)
         val buttonNewInfo: Button = findViewById(R.id.buttonNewInfo)
+        val buttonConfigOpcion : Button = findViewById(R.id.buttonOpcions)
 
         textViewWelcome.text = "Bienvenido, $userName"
 
@@ -40,5 +41,11 @@ class MainActivity : AppCompatActivity() {
         buttonNewInfo.setOnClickListener {
             startActivity(Intent(this, InfoActivity::class.java))
         }
+
+        buttonConfigOpcion.setOnClickListener {
+            startActivity(Intent(this, OpcionsActivity::class.java))
+        }
+
+
     }
 }

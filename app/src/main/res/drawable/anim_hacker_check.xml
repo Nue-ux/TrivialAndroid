@@ -1,28 +1,31 @@
 <animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
     android:drawable="@drawable/ic_hacker_check">
 
-    <!-- trazo que se dibuja -->
-    <target android:name="check_path"
-        android:animation="">
-        <objectAnimator
-            android:propertyName="trimPathEnd"
-            android:duration="350"
-            android:valueFrom="0"
-            android:valueTo="1"
-            android:valueType="floatType"/>
+    <!-- trazo -->
+    <target android:name="check_path">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="trimPathEnd"
+                android:duration="350"
+                android:valueFrom="0"
+                android:valueTo="1"
+                android:valueType="floatType"/>
+        </aapt:attr>
     </target>
 
-    <!-- leve destello neón al terminar -->
-    <target android:name="check_path"
-        android:animation="">
-        <objectAnimator
-            android:startOffset="350"
-            android:propertyName="strokeAlpha"
-            android:duration="500"
-            android:repeatCount="2"
-            android:repeatMode="reverse"
-            android:valueFrom="1"
-            android:valueTo="0.55"
-            android:valueType="floatType"/>
+    <!-- destello -->
+    <target android:name="check_path">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:startOffset="350"
+                android:propertyName="strokeAlpha"
+                android:duration="500"
+                android:repeatCount="2"
+                android:repeatMode="reverse"
+                android:valueFrom="1"
+                android:valueTo="0.55"
+                android:valueType="floatType"/>
+        </aapt:attr>
     </target>
 </animated-vector>

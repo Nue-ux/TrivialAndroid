@@ -1,48 +1,57 @@
 <animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
     android:drawable="@drawable/ic_hacker_cross">
 
-    <!-- primera diagonal -->
+    <!-- diagonal 1 -->
     <target android:name="line1">
-        <objectAnimator
-            android:propertyName="trimPathEnd"
-            android:duration="300"
-            android:valueFrom="0"
-            android:valueTo="1"
-            android:valueType="floatType"/>
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="trimPathEnd"
+                android:duration="300"
+                android:valueFrom="0"
+                android:valueTo="1"
+                android:valueType="floatType"/>
+        </aapt:attr>
     </target>
 
-    <!-- segunda diagonal, empieza cuando la primera termina -->
+    <!-- diagonal 2 -->
     <target android:name="line2">
-        <objectAnimator
-            android:startOffset="300"
-            android:propertyName="trimPathEnd"
-            android:duration="300"
-            android:valueFrom="0"
-            android:valueTo="1"
-            android:valueType="floatType"/>
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:startOffset="300"
+                android:propertyName="trimPathEnd"
+                android:duration="300"
+                android:valueFrom="0"
+                android:valueTo="1"
+                android:valueType="floatType"/>
+        </aapt:attr>
     </target>
 
-    <!-- parpadeo hacker -->
+    <!-- parpadeo -->
     <target android:name="line1">
-        <objectAnimator
-            android:startOffset="600"
-            android:propertyName="strokeAlpha"
-            android:duration="450"
-            android:repeatCount="2"
-            android:repeatMode="reverse"
-            android:valueFrom="1"
-            android:valueTo="0.4"
-            android:valueType="floatType"/>
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:startOffset="600"
+                android:propertyName="strokeAlpha"
+                android:duration="450"
+                android:repeatCount="2"
+                android:repeatMode="reverse"
+                android:valueFrom="1"
+                android:valueTo="0.4"
+                android:valueType="floatType"/>
+        </aapt:attr>
     </target>
     <target android:name="line2">
-        <objectAnimator
-            android:startOffset="600"
-            android:propertyName="strokeAlpha"
-            android:duration="450"
-            android:repeatCount="2"
-            android:repeatMode="reverse"
-            android:valueFrom="1"
-            android:valueTo="0.4"
-            android:valueType="floatType"/>
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:startOffset="600"
+                android:propertyName="strokeAlpha"
+                android:duration="450"
+                android:repeatCount="2"
+                android:repeatMode="reverse"
+                android:valueFrom="1"
+                android:valueTo="0.4"
+                android:valueType="floatType"/>
+        </aapt:attr>
     </target>
 </animated-vector>
