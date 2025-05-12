@@ -71,6 +71,7 @@
         android:layout_height="wrap_content"
         android:text="Guardar configuración"
         app:strokeColor="@color/matrixGreen"
+        app:backgroundTint="@color/black"
         app:strokeWidth="1dp" />
 
     <!-- Botón Activar/Desactivar sonido -->
@@ -81,6 +82,7 @@
         android:layout_marginTop="16dp"
         android:text="Desactivar sonido"
         app:strokeColor="@color/matrixGreen"
+        app:backgroundTint="@color/black"
         app:strokeWidth="1dp" />
 
 </LinearLayout>

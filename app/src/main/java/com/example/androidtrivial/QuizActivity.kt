@@ -1,7 +1,9 @@
 package com.example.androidtrivial
 
+import android.Manifest
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
@@ -26,8 +28,13 @@ import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.media.SoundPool
 import android.util.Log
+import android.telephony.PhoneStateListener
+import android.telephony.TelephonyManager
+import androidx.core.app.ActivityCompat
 
 class QuizActivity : AppCompatActivity() {
+
+    private val REQUEST_READ_PHONE_STATE = 100
 
     private lateinit var questions: List<Question>
     private var currentQuestionIndex = 0
@@ -52,6 +59,10 @@ class QuizActivity : AppCompatActivity() {
     private var selectedFinish = 0
     private var selectedCorrect = 0
     private var selectedWrong = 0
+
+    // Variables para gestionar el estado de la llamada
+    private lateinit var telephonyManager: TelephonyManager
+    private lateinit var phoneStateListener: PhoneStateListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,6 +119,39 @@ class QuizActivity : AppCompatActivity() {
         soundMapFinish[1] = soundPool.load(this, R.raw.finish2, 1)
         soundMapFinish[2] = soundPool.load(this, R.raw.finish3, 1)
 
+        telephonyManager = getSystemService(TELEPHONY_SERVICE) as TelephonyManager
+        phoneStateListener = object : PhoneStateListener() {
+            override fun onCallStateChanged(state: Int, phoneNumber: String?) {
+                when (state) {
+                    TelephonyManager.CALL_STATE_RINGING,
+                    TelephonyManager.CALL_STATE_OFFHOOK -> {
+                        if (bgMusic.isPlaying) {
+                            val pos = bgMusic.currentPosition
+                            sharedPref.edit().putInt("MUSIC_POSITION", pos).apply()
+                            bgMusic.pause()
+                        }
+                    }
+                    TelephonyManager.CALL_STATE_IDLE -> {
+                        val pos = sharedPref.getInt("MUSIC_POSITION", 0)
+                        bgMusic.seekTo(pos)
+                        if (!bgMusic.isPlaying && isSoundEnabled()) {
+                            bgMusic.start()
+                        }
+                    }
+                }
+            }
+        }
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+            == PackageManager.PERMISSION_GRANTED) {
+            telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE)
+        } else {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.READ_PHONE_STATE),
+                REQUEST_READ_PHONE_STATE
+            )
+        }
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -126,6 +170,19 @@ class QuizActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_READ_PHONE_STATE &&
+            grantResults.isNotEmpty() &&
+            grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE)
         }
     }
 
@@ -154,7 +211,7 @@ class QuizActivity : AppCompatActivity() {
         selectedFinish = sharedPref.getInt("SOUND_FINISH", 0)
         val finishSoundId = soundMapFinish[selectedFinish] ?: soundMapFinish[0]!!
 
-        if(isSoundEnabled()) {
+        if (isSoundEnabled()) {
             soundPool.play(finishSoundId, 1f, 1f, 1, 0, 1f)
         }
         // 2. Espera ~1s para que se oiga y luego navega
@@ -192,7 +249,9 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun checkAnswer(selectedButton: Button, question: Question) {
-        listOf(buttonOption1, buttonOption2, buttonOption3, buttonOption4).forEach { it.isEnabled = false }
+        listOf(buttonOption1, buttonOption2, buttonOption3, buttonOption4).forEach {
+            it.isEnabled = false
+        }
         val selectedAnswer = selectedButton.text.toString()
 
         if (selectedAnswer == question.correcta) {
@@ -289,6 +348,7 @@ class QuizActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE)
         soundPool.release()
         bgMusic.release()
     }
